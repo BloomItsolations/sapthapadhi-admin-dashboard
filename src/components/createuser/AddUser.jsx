@@ -222,7 +222,7 @@ const AddUser = ({ onSave, onCancel, editData }) => {
         </Button>
         <Button type="submit" variant="contained">
           Save
-        </Button>
+        </Button>1
       </Box>
     </Box>
   );

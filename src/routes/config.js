@@ -10,37 +10,37 @@ const Dashboard = lazy(() => import("../pages/Dashboard"));
 export const appRoutes = [
   { group: "Dashboard", title: "Dashboard", path: "/", element: <Dashboard /> },
   {
-    group: "plan",
+    group: "Dashboard",
     title: "Plan Management",
     path: "/plan-management",
     element: <CreatePackage />,
   },
   {
-    group: "user",
+    group: "Dashboard",
     title: "User Managment",
     path: "/user-management",
     element: <CreateUserPage />,
   },
   {
-    group: "Images",
+    group: "Dashboard",
     title: "Gallery Management",
     path: "/gallery-management",
     element: <GalleryManagement />,
   },
   {
-    group: "Images",
+    group: "Dashboard",
     title: "Banner Management",
     path: "/banner-management",
     element: <BannerDisplay />,
   },
   {
-    group: "Iouple",
+    group: "Dashboard",
     title: "Couple Management",
     path: "/couple-management",
     element: <CreateCouple />,
   },
   {
-    group: "Enquiry",
+    group: "Dashboard",
     title: "Enquiry message",
     path: "/inquiry-message",
     element: <Inquary />,

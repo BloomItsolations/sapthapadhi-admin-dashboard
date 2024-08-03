@@ -1,34 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography, Box } from '@mui/material';
 import Swal from 'sweetalert2';
-import axios from 'axios'; // Make sure axios is installed
-import tripApi from '../api/tripApi';
+import { useDispatch, useSelector } from 'react-redux';
+import { listInquary } from '../store/auth/userActions';
 
 const InquiryPage = () => {
-    const [inquiries, setInquiries] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const dispatch = useDispatch();
+    const { allInquary } = useSelector((state) => state.user);
 
     useEffect(() => {
-        const fetchInquiries = async () => {
-            try {
-                const response = await tripApi.get('/v1/tours/list-enquire');
-                setInquiries(response.data.enquiries);
-                setLoading(false);
-            } catch (error) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: 'Failed to load inquiries. Please try again later.',
-                });
-                setLoading(false);
-            }
-        };
+        dispatch(listInquary());
+    }, [dispatch]);
 
-        fetchInquiries();
-    }, []);
-
-    if (loading) {
-        return <Typography variant="h6" align="center">Loading...</Typography>;
+    if (!allInquary || allInquary.length === 0) {
+        return <Typography variant="h6" align="center">No inquiries found.</Typography>;
     }
 
     return (
@@ -42,21 +27,25 @@ const InquiryPage = () => {
                         <TableRow>
                             <TableCell><Typography variant="h6">Name</Typography></TableCell>
                             <TableCell><Typography variant="h6">Email</Typography></TableCell>
+                            <TableCell><Typography variant="h6">Phone</Typography></TableCell>
+                            <TableCell><Typography variant="h6">Subject</Typography></TableCell>
                             <TableCell><Typography variant="h6">Message</Typography></TableCell>
                             <TableCell><Typography variant="h6">Date</Typography></TableCell>
                             <TableCell><Typography variant="h6">Time</Typography></TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {inquiries.map((inquiry) => {
+                        {allInquary.enquiries.map((inquiry) => {
                             // Extract date and time from the createdAt field
                             const date = new Date(inquiry.createdAt).toLocaleDateString();
                             const time = new Date(inquiry.createdAt).toLocaleTimeString();
 
                             return (
                                 <TableRow key={inquiry.id}>
-                                    <TableCell>{inquiry.name}</TableCell>
+                                    <TableCell>{inquiry.fullName}</TableCell>
                                     <TableCell>{inquiry.email}</TableCell>
+                                    <TableCell>{inquiry.phone}</TableCell>
+                                    <TableCell>{inquiry.subject}</TableCell>
                                     <TableCell>{inquiry.message}</TableCell>
                                     <TableCell>{date}</TableCell>
                                     <TableCell>{time}</TableCell>

@@ -3,37 +3,65 @@ import {
   Button,
   Box,
   Grid,
-  TextField,
   Typography,
   Dialog,
   DialogTitle,
   DialogContent,
   DialogActions,
-  IconButton,
-  MenuItem
+  IconButton
 } from "@mui/material";
 import { Add, Delete } from "@mui/icons-material";
 import axios from "axios";
+import { deleteImage, listGalleryImage } from "../../store/auth/userActions";
+import { useDispatch, useSelector } from "react-redux";
+import Swal from "sweetalert2";
+import tripApi from "../../api/tripApi";
 
 const GalleryManagement = () => {
-  const [galleryImages, setGalleryImages] = useState([{url:"https://th.bing.com/th/id/OIP.jHvTOSF7924Ah63W7mozxQHaEo?rs=1&pid=ImgDetMain"},{url:"https://th.bing.com/th/id/OIP.jHvTOSF7924Ah63W7mozxQHaEo?rs=1&pid=ImgDetMain"},{url:"https://th.bing.com/th/id/OIP.jHvTOSF7924Ah63W7mozxQHaEo?rs=1&pid=ImgDetMain"},{url:"https://th.bing.com/th/id/OIP.jHvTOSF7924Ah63W7mozxQHaEo?rs=1&pid=ImgDetMain"}]);
+  const dispatch = useDispatch();
+  const [galleryImages, setGalleryImages] = useState([]);
   const [showDialog, setShowDialog] = useState(false);
-  const [selectedFiles, setSelectedFiles] = useState([]);
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [update, setUpdate] = useState(false);
+  const { gallery } = useSelector(state => state.user);
 
- 
+  useEffect(() => {
+    dispatch(listGalleryImage());
+  }, [update, dispatch]);
+
+  useEffect(() => {
+    if (gallery) {
+      setGalleryImages(gallery);
+    }
+  }, [gallery,update]);
 
   const handleFileChange = (event) => {
-    setSelectedFiles(event.target.files);
+    setSelectedFile(event.target.files[0]);
   };
 
-  const handleUploadImages = async () => {
-    if (selectedFiles.length === 0) return;
+  // i will update this code, after some time.
+  let token=JSON.parse(sessionStorage.getItem('userInfo'));
+ 
+  const handleUploadImage = async () => {
+    if (!selectedFile) return;
 
     const formData = new FormData();
-    Array.from(selectedFiles).forEach((file) => {
-      formData.append("images", file);
-    });
-    
+    formData.append("image", selectedFile);
+
+    try {
+      const response = await tripApi.post('/admin/addGallery', formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token.token}`,
+        },
+      });
+      Swal.fire("Uploaded!", "Image has been uploaded.", "success");
+      setUpdate(!update);
+      handleCloseDialog();
+    } catch (error) {
+      console.error("Error", error);
+      Swal.fire("Error", "Failed to upload image.", "error");
+    }
   };
 
   const handleOpenDialog = () => {
@@ -42,32 +70,30 @@ const GalleryManagement = () => {
 
   const handleCloseDialog = () => {
     setShowDialog(false);
-    setSelectedFiles([]);
+    setSelectedFile(null);
   };
 
   const handleDeleteImage = async (imageId) => {
     try {
-      await axios.delete(`$}/admin/deleteGalleryImage/${imageId}`, {
-        headers: {
-          "Authorization": `Bearer your-token`, // Replace with actual token if needed
-        },
-      });
+      dispatch(deleteImage(imageId));
+      Swal.fire("Deleted!", "Image has been deleted.", "success");
+      setUpdate(!update)
     } catch (error) {
-      console.error("Failed to delete image", error);
+      Swal.fire("Error", "Failed to delete image.", "error");
     }
   };
+
+  if (!galleryImages) {
+    return <div>Loading....</div>;
+  }
 
   return (
     <Box sx={{ padding: 2 }}>
       <Typography variant="h4" gutterBottom>
         Gallery Management
       </Typography>
-      <Button
-        variant="contained"
-        startIcon={<Add />}
-        onClick={handleOpenDialog}
-      >
-        Add Images
+      <Button variant="contained" startIcon={<Add />} onClick={handleOpenDialog}>
+        Add Image
       </Button>
       <Grid container spacing={2} marginTop={2}>
         {galleryImages.map((image, index) => (
@@ -82,7 +108,7 @@ const GalleryManagement = () => {
               }}
             >
               <img
-                src={image.url} // Adjust according to your API response
+                src={`https://sapthapadhi.bloomitsolutions.co.in/${image?.photos[0]?.path}`}
                 alt={`Gallery Image ${index + 1}`}
                 style={{ width: "100%", height: "100%", objectFit: "cover" }}
               />
@@ -94,7 +120,7 @@ const GalleryManagement = () => {
                   color: "white",
                   backgroundColor: "red",
                 }}
-                onClick={() => handleDeleteImage(image.id)} // Adjust based on your image ID property
+                onClick={() => handleDeleteImage(image.id)} 
               >
                 <Delete />
               </IconButton>
@@ -104,18 +130,13 @@ const GalleryManagement = () => {
       </Grid>
 
       <Dialog open={showDialog} onClose={handleCloseDialog}>
-        <DialogTitle>Add Images to Gallery</DialogTitle>
+        <DialogTitle>Add Image to Gallery</DialogTitle>
         <DialogContent>
-          <input
-            type="file"
-            accept="image/*"
-            multiple
-            onChange={handleFileChange}
-          />
+          <input type="file" accept="image/*" onChange={handleFileChange} />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseDialog}>Cancel</Button>
-          <Button onClick={handleUploadImages} color="primary">
+          <Button onClick={handleUploadImage} color="primary">
             Upload
           </Button>
         </DialogActions>
