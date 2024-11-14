@@ -88,7 +88,6 @@ export default function Nav({ openNav, onCloseNav }) {
       </Box>
     </Scrollbar>
   );
-
   return (
     <Box
       component="nav"
