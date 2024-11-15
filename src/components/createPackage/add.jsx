@@ -71,7 +71,7 @@ const Add = ({ onSave, onCancel, editData }) => {
         onSubmit={handleSubmit}
         sx={{
           marginBottom: 2,
-          backgroundColor: "#F4F6F8",
+          backgroundColor: "linear-gradient(135deg, #141E30, #243B55)",
           boxShadow: 1,
           padding: 2,
           borderRadius: 1,
@@ -94,6 +94,21 @@ const Add = ({ onSave, onCancel, editData }) => {
               fullWidth
               autoComplete="name"
               placeholder="e.g. Basic Plan"
+              sx={{
+
+                '& .MuiOutlinedInput-root': {
+                  '& fieldset': {
+                    borderColor: '#007BFF',
+                  },
+                  '&:hover fieldset': {
+                    borderColor: '#0056B3',
+                  },
+                  '& input': {
+                    color: 'white', // Set text color to white
+                  },
+                },
+              }}
+
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -112,6 +127,21 @@ const Add = ({ onSave, onCancel, editData }) => {
               fullWidth
               autoComplete="amount"
               placeholder="e.g. 99.99"
+              sx={{
+
+                '& .MuiOutlinedInput-root': {
+                  '& fieldset': {
+                    borderColor: '#007BFF',
+                  },
+                  '&:hover fieldset': {
+                    borderColor: '#0056B3',
+                  },
+                  '& input': {
+                    color: 'white', // Set text color to white
+                  },
+                },
+              }}
+
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -130,6 +160,19 @@ const Add = ({ onSave, onCancel, editData }) => {
               fullWidth
               autoComplete="planValidity"
               placeholder="e.g. 6 months"
+              sx={{
+                '& .MuiOutlinedInput-root': {
+                  '& fieldset': {
+                    borderColor: '#007BFF',
+                  },
+                  '&:hover fieldset': {
+                    borderColor: '#0056B3',
+                  },
+                  '& input': {
+                    color: 'white', // Set text color to white
+                  },
+                },
+              }}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -148,13 +191,27 @@ const Add = ({ onSave, onCancel, editData }) => {
               fullWidth
               autoComplete="planType"
               placeholder="e.g. Basic"
+              sx={{
+
+                '& .MuiOutlinedInput-root': {
+                  '& fieldset': {
+                    borderColor: '#007BFF',
+                  },
+                  '&:hover fieldset': {
+                    borderColor: '#0056B3',
+                  },
+                  '& input': {
+                    color: 'white', 
+                  },
+                },
+              }}
             />
           </Grid>
         </Grid>
         <Box
           sx={{
             marginY: 2,
-            backgroundColor: "#fff",
+            backgroundColor: "linear-gradient(135deg, #141E30, #243B55)",
             boxShadow: 1,
             padding: 2,
             borderRadius: 1,
@@ -169,10 +226,18 @@ const Add = ({ onSave, onCancel, editData }) => {
               gap: 1,
             }}
           >
-            <Typography variant="h6" gutterBottom textTransform={"uppercase"}>
+            <Typography variant="h6" gutterBottom textTransform={"uppercase"} color="#FFFFFF">
               Plan Features
             </Typography>
-            <Button variant="contained" onClick={addFeature}>
+            <Button variant="contained" onClick={addFeature}
+               sx={{
+                backgroundColor: "#00C853", // Accent button background
+                color: "#FFFFFF", // White text
+                "&:hover": {
+                  backgroundColor: "#009624", // Hover background for accent button
+                },
+              }}
+            >
               Add Feature
             </Button>
           </Box>
@@ -191,6 +256,25 @@ const Add = ({ onSave, onCancel, editData }) => {
                   variant="outlined"
                   onChange={(event) => handleFeatureChange(event, index)}
                   value={feature.desc}
+                  sx={{
+                    '& .MuiOutlinedInput-root': {
+                      '& input': {
+                        color: '#FFFFFF', // Text color in the input box
+                      },
+                      '& fieldset': {
+                        borderColor: '#007BFF', // Border color
+                      },
+                      '&:hover fieldset': {
+                        borderColor: '#0056B3', // Border color on hover
+                      },
+                    },
+                    '& .MuiInputLabel-root': {
+                      color: '#B3C2D1', // Label color
+                    },
+                    '& .MuiInputBase-input::placeholder': {
+                      color: '#B3C2D1', // Placeholder color
+                    },
+                  }}
                 />
               </Grid>
               <Grid item xs={12} sm={2}>
@@ -205,6 +289,29 @@ const Add = ({ onSave, onCancel, editData }) => {
                   variant="outlined"
                   onChange={(event) => handleFeatureChange(event, index)}
                   value={String(feature.value)}
+                  sx={{
+                    '& .MuiOutlinedInput-root': {
+                      '& input': {
+                        color: '#FFFFFF', // Text color in the select input
+                      },
+                      '& fieldset': {
+                        borderColor: '#007BFF', // Border color
+                      },
+                      '&:hover fieldset': {
+                        borderColor: '#0056B3', // Border color on hover
+                      },
+                    },
+                    '& .MuiInputLabel-root': {
+                      color: '#B3C2D1', // Label color
+                    },
+                    '& .MuiInputBase-input': {
+                      paddingLeft: '16px', // Padding for input text
+                    },
+                    '& .MuiSelect-icon': {
+                      color: '#FFFFFF', // Color of the dropdown icon
+                    },
+                  }}
+                
                 >
                   <MenuItem value="true">Yes</MenuItem>
                   <MenuItem value="false">No</MenuItem>

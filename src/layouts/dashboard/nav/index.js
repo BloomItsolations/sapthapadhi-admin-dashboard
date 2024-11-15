@@ -21,7 +21,7 @@ const StyledAccount = styled("div")(({ theme }) => ({
   alignItems: "center",
   padding: theme.spacing(2, 1),
   borderRadius: Number(theme.shape.borderRadius) * 1.5,
-  backgroundColor: alpha(theme.palette.grey[500], 0.12),
+  backgroundImage: 'linear-gradient(135deg, #141E30, #243B55)', // Correctly using backgroundImage for gradient
 }));
 
 // ----------------------------------------------------------------------
@@ -94,38 +94,44 @@ export default function Nav({ openNav, onCloseNav }) {
       sx={{
         flexShrink: { lg: 0 },
         width: { lg: NAV_WIDTH },
+        background: 'linear-gradient(135deg, #141E30, #243B55)', // Set gradient background for Box
       }}
     >
       {isDesktop ? (
-        <Drawer
-          open
-          variant="permanent"
-          PaperProps={{
-            sx: {
-              width: NAV_WIDTH,
-              bgcolor: "background.default",
-              borderColor: "white",
-              boxShadow: " 0 0 2px 0 rgba(0, 0, 0, 0.4)",
-              border: "none",
-            },
-          }}
-        >
-          {renderContent}
-        </Drawer>
-      ) : (
-        <Drawer
-          open={openNav}
-          onClose={onCloseNav}
-          ModalProps={{
-            keepMounted: true,
-          }}
-          PaperProps={{
-            sx: { width: NAV_WIDTH },
-          }}
-        >
-          {renderContent}
-        </Drawer>
-      )}
+  <Drawer
+    open
+    variant="permanent"
+    PaperProps={{
+      sx: {
+        width: NAV_WIDTH,
+        borderColor: "white",
+        boxShadow: "0 0 2px 0 rgba(0, 0, 0, 0.4)",
+        border: "none",
+        background: 'linear-gradient(135deg, #141E30, #243B55)', // Gradient background
+        color: 'white', // Text color
+      },
+    }}
+  >
+    {renderContent}
+  </Drawer>
+) : (
+  <Drawer
+    open={openNav}
+    onClose={onCloseNav}
+    ModalProps={{
+      keepMounted: true,
+    }}
+    PaperProps={{
+      sx: { 
+        width: NAV_WIDTH, 
+        background: 'linear-gradient(135deg, #141E30, #243B55)', // Apply gradient here for mobile view
+      },
+    }}
+  >
+    {renderContent}
+  </Drawer>
+)}
+
     </Box>
   );
 }

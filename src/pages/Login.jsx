@@ -12,7 +12,6 @@ import {
   Button,
 } from "@mui/material";
 import { toast } from "react-toastify";
-
 import { Link, useNavigate } from "react-router-dom";
 import { userLogin } from "../store/auth/userActions";
 import { useDispatch, useSelector } from "react-redux";
@@ -24,6 +23,8 @@ const StyledRoot = styled("div")(({ theme }) => ({
   [theme.breakpoints.up("md")]: {
     display: "flex",
     justifyContent: "space-between",
+    background: "linear-gradient(135deg, #141E30, #243B55)",
+    color: '#FFFFFF'
   },
 }));
 
@@ -59,7 +60,7 @@ export default function Login() {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
-        text:error,
+        text: error,
       });
       dispatch(clearmsg());
     }
@@ -74,13 +75,13 @@ export default function Login() {
 
     if (userInfo !== null) {
       // navigate("/app", { replace: true });
-      window.location.replace('/app'); 
+      window.location.replace('/app');
 
     }
   }, [dispatch, error, userInfo, navigate, success]);
   return (
     <>
-       <Helmet>
+      <Helmet>
         <title> Login | SAPTHAPDHI</title>
       </Helmet>
 
@@ -107,9 +108,17 @@ export default function Login() {
               fullWidth
               id="phone"
               label="Phone"
+              InputProps={{
+                style: {
+                  color: '#FFFFFF', // Input text color (white for contrast)
+                }
+              }}
               name="phone"
               autoComplete="phone"
               autoFocus
+              InputLabelProps={{
+                style: { color: "#B3C2D1" },
+              }}
             />
             <TextField
               margin="normal"
@@ -119,6 +128,7 @@ export default function Login() {
               autoComplete="current-password"
               name="password"
               label="Password"
+              
               type={showPassword ? "text" : "password"}
               InputProps={{
                 endAdornment: (
@@ -135,11 +145,30 @@ export default function Login() {
                     </IconButton>
                   </InputAdornment>
                 ),
+                style: {
+                  color: '#FFFFFF', // Input text color (white for contrast)
+                }
+
+              }
+
+              }
+              InputLabelProps={{
+                style: { color: "#B3C2D1" }, // Secondary text color
               }}
+              
             />
             <Button
               sx={{
                 marginTop: 2,
+                backgroundColor: '#007BFF',  // Primary blue color
+                color: '#FFFFFF',            // White text color
+                borderRadius: '5px',
+                '&:hover': {
+                  backgroundColor: '#0056B3', // Darker blue on hover
+                },
+                padding: '10px 20px',         // Padding for the button
+                textTransform: 'capitalize',  // Keeps the text capitalization
+                boxShadow: 'none',            // Optional: Remove shadow on hover
               }}
               disabled={loading ? true : false}
               type="submit"
@@ -147,10 +176,11 @@ export default function Login() {
               size="large"
               variant="contained"
             >
-              <Typography variant="h6" textTransform="capitalize">
+              <Typography variant="h6">
                 Login
               </Typography>
             </Button>
+
           </Box>
           <Stack
             direction="row"
@@ -169,7 +199,7 @@ export default function Login() {
             justifyContent="center"
             sx={{ mt: 2 }}
           >
-            
+
           </Stack>
         </StyledContent>
       </StyledRoot>

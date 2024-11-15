@@ -65,6 +65,8 @@ export default function AccountPopover() {
             mt: 1.5,
             ml: 0.75,
             width: 300,
+            color:'#B3C2D1',
+            backgroundImage: 'linear-gradient(135deg, #141E30, #243B55)', // Corrected gradient syntax
             "& .MuiMenuItem-root": {
               typography: "body2",
               borderRadius: 0.75,
@@ -88,11 +90,11 @@ export default function AccountPopover() {
 
         <Button
           onClick={logoutHandler}
-          sx={{ padding: 1, margin: 1, width: "280px" }}
+          sx={{ padding: 1, margin: 1, width: "280px",background:'#2065d1' }}
           variant="contained"
           startIcon={<LogoutIcon />}
         >
-          <Typography variant="body2" noWrap>
+          <Typography variant="body2" noWrap sx={{color:'white'}}>
             Logout
           </Typography>
         </Button>

@@ -1,7 +1,11 @@
 import { NavLink as RouterLink } from "react-router-dom";
 import React from "react";
 // @mui
-import { Box, ListItemText, Typography } from "@mui/material";
+import { Box, ListItemText, ListItemIcon, Typography } from "@mui/material";
+// Icons from Material UI
+import HomeIcon from '@mui/icons-material/Home';
+import SettingsIcon from '@mui/icons-material/Settings';
+// Add more icons as needed
 //
 import { StyledNavItem } from "./styles";
 
@@ -14,10 +18,10 @@ export default function NavSection({ data = [], uniqueGroups }) {
         <div key={(index + 1).toString()}>
           <Typography
             variant="caption"
-            color="primary"
+            color="white" // Set group label color to white
             sx={{ textTransform: "uppercase" }}
           >
-            {group}
+            {/* {group} */}
           </Typography>
           {data
             ?.filter((route) => route.group === group)
@@ -31,7 +35,14 @@ export default function NavSection({ data = [], uniqueGroups }) {
 }
 
 function NavItem({ item }) {
-  const { title, path, info } = item;
+  const { title, path, info,icon } = item;
+
+  // Define icons for each item (you can dynamically map or assign icons as per your requirement)
+  const icons = {
+    home: <HomeIcon />,
+    settings: <SettingsIcon />,
+    // Add more icons here for other navigation items
+  };
 
   return (
     <StyledNavItem
@@ -39,18 +50,27 @@ function NavItem({ item }) {
       to={path}
       sx={{
         "&.active": {
-          color: "text.primary",
+          color: "white", // Active link color is white
           bgcolor: "action.selected",
           fontWeight: "fontWeightBold",
         },
         padding: "4px 16px",
-        margin: "8px  0px",
+        margin: "8px 0px",
+        display: "flex",
+        alignItems: "center", // Align the icon and text horizontally
       }}
     >
+      {/* Add ListItemIcon here */}
+      <ListItemIcon sx={{ color: "#2065d1" }}>
+      {icon}
+      </ListItemIcon>
       <ListItemText
         disableTypography
         primary={title}
-        sx={{ textTransform: "uppercase", color: "text.primary" }}
+        sx={{
+          textTransform: "uppercase",
+          color: "white", // Set the color of the text to white
+        }}
       />
       {info && info}
     </StyledNavItem>

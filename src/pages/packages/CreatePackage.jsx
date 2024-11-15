@@ -90,10 +90,18 @@ export const CreatePackage = () => {
         justifyContent="space-between"
         mb={2}
       >
-        <Typography variant="h4" gutterBottom textTransform={"uppercase"}>
+        <Typography color="#B3C2D1" variant="h4" gutterBottom textTransform={"uppercase"}>
           My Plans
         </Typography>
-        <Button onClick={() => setIsEditing(!isEditing)} variant="contained">
+        <Button onClick={() => setIsEditing(!isEditing)} variant="contained"
+          sx={{
+            backgroundColor: '#007BFF',
+            color: '#FFFFFF',
+            '&:hover': {
+              backgroundColor: '#0056B3',
+            }
+          }}
+          >
           {isEditing ? "List" : "Add"}
         </Button>
       </Stack>

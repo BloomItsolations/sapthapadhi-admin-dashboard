@@ -24,6 +24,7 @@ const HEADER_DESKTOP = 64;
 const StyledRoot = styled(AppBar)(({ theme }) => ({
   ...bgBlur({ color: theme.palette.background.default }),
   boxShadow: "none",
+  background:'linear-gradient(135deg, #141E30, #243B55)',
   [theme.breakpoints.up("lg")]: {
     width: `calc(100% - ${NAV_WIDTH + 1}px)`,
   },
@@ -40,7 +41,7 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   alignItems: "center",
   border: "none",
   boxShadow: " 0 0 2px 0 rgba(0, 0, 0, 0.4)",
-  borderColor: "white",
+  borderColor: "linear-gradient(135deg, #141E30, #243B55)",
 }));
 
 export default function Header({ onOpenNav }) {
@@ -66,12 +67,12 @@ export default function Header({ onOpenNav }) {
             }}
           >
             <Typography
-              color="primary"
+              color="#FFFFFF"
               variant="h4"
               noWrap
               sx={{ textTransform: "uppercase" }}
             >
-              Trip or Travels
+             SAPTHAPADHI
             </Typography>
           </Box>
         </Box>

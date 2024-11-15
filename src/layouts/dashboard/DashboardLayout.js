@@ -14,7 +14,8 @@ const APP_BAR_DESKTOP = 92;
 const StyledRoot = styled("div")({
   display: "flex",
   minHeight: "100%",
-  overflow: "hidden",
+  overflow: "hidden", 
+  background: "linear-gradient(135deg, #141E30, #243B55)", // Correct property for background
 });
 
 const Main = styled("div")(({ theme }) => ({
