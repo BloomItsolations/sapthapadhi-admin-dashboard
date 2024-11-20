@@ -45,10 +45,26 @@ const BannerDisplay = () => {
 
   const handleDelete = async (id) => {
     try {
-      await dispatch(deleteBanner(id));
-      setUpdate(!update);
-      Swal.fire("Deleted!", "Banner has been deleted.", "success");
-    } catch (err) {
+      const result = await Swal.fire({
+        title: 'Are you sure?',
+        text: "This action cannot be undone!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'Cancel',
+    });
+    if(result.isConfirmed){
+     let response= await dispatch(deleteBanner(id));
+       if(response.payload.message=="Banner deleted successfully"){
+        setUpdate(!update);
+        Swal.fire("Deleted!", "Banner has been deleted.", "success");
+       }else{
+        Swal.fire("Error", "Failed to delete banner.", "error");
+       }
+     }
+       } catch (err) {
       Swal.fire("Error", "Failed to delete banner.", "error");
     }
   };
@@ -67,7 +83,7 @@ const BannerDisplay = () => {
       Swal.fire("Uploaded!", "Banner has been uploaded.", "success");
       handleCloseDialog();
     } catch (error) {
-      console.log("Error",error);
+      console.log("Error", error);
       Swal.fire("Error", "Failed to upload banner.", "error");
     }
   };
@@ -87,7 +103,7 @@ const BannerDisplay = () => {
 
   return (
     <Box sx={{ padding: 2 }}>
-      <Typography variant="h4" gutterBottom>
+      <Typography variant="h4" sx={{ color: 'white' }} gutterBottom>
         Banner Management
       </Typography>
       <Button
@@ -110,7 +126,7 @@ const BannerDisplay = () => {
               }}
             >
               <img
-                src={`https://sapthapadhi.bloomitsolutions.co.in/${banner.imageUrls[0]?.path}`}
+                src={`${process.env.REACT_APP_BASE_URL}/${banner.imageUrls[0]?.path}`}
                 alt={`Banner ${index + 1}`}
                 style={{ width: "100%", height: "100%", objectFit: "cover" }}
               />
@@ -132,16 +148,22 @@ const BannerDisplay = () => {
       </Grid>
 
       <Dialog open={showDialog} onClose={handleCloseDialog} maxWidth="sm" fullWidth>
-        <DialogTitle>Add Banner</DialogTitle>
-        <DialogContent dividers>
+        <DialogTitle sx={{ background: "linear-gradient(135deg, #141E30, #243B55)", color: '#FFFFFF' }}>Add Banner</DialogTitle>
+        <DialogContent dividers sx={{ background: "linear-gradient(135deg, #141E30, #243B55)", color: '#FFFFFF' }}>
           <Box display="flex" flexDirection="column" alignItems="center">
-            <InputLabel htmlFor="banner-upload" sx={{ marginBottom: 2 }}>
+            <InputLabel htmlFor="banner-upload" sx={{ marginBottom: 2, color: '#FFFFFF' }}>
               Upload Banner Image
             </InputLabel>
             <Button
               variant="contained"
               component="label"
-              color="primary"
+              sx={{
+                backgroundColor: '#007BFF', 
+                color: '#FFFFFF',
+                '&:hover': {
+                  backgroundColor: '#0056B3', 
+                },
+              }}
             >
               Choose File
               <input
@@ -152,20 +174,40 @@ const BannerDisplay = () => {
               />
             </Button>
             {bannerFile && (
-              <Typography variant="body2" sx={{ marginTop: 2 }}>
+              <Typography variant="body2" sx={{ marginTop: 2, color: '#FFFFFF' }}>
                 Selected File: {bannerFile.name}
               </Typography>
             )}
-           
           </Box>
         </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseDialog}>Cancel</Button>
-          <Button onClick={handleUploadBanner} color="primary">
+        <DialogActions sx={{ background: "linear-gradient(135deg, #141E30, #243B55)" }}>
+          <Button
+            onClick={handleCloseDialog}
+            sx={{
+              backgroundColor: '#FF5252', 
+              color: '#FFFFFF',
+              '&:hover': {
+                backgroundColor: '#D32F2F',
+              },
+            }}
+          >
+            Cancel
+          </Button>
+          <Button
+            onClick={handleUploadBanner}
+            sx={{
+              backgroundColor: '#00C853', 
+              color: '#FFFFFF', 
+              '&:hover': {
+                backgroundColor: '#009624',
+              },
+            }}
+          >
             Upload
           </Button>
         </DialogActions>
       </Dialog>
+
     </Box>
   );
 };

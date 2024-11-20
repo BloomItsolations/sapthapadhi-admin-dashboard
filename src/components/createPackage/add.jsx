@@ -292,7 +292,7 @@ const Add = ({ onSave, onCancel, editData }) => {
                   sx={{
                     '& .MuiOutlinedInput-root': {
                       '& input': {
-                        color: '#FFFFFF', // Text color in the select input
+                        color: 'white', // Text color in the select input
                       },
                       '& fieldset': {
                         borderColor: '#007BFF', // Border color
@@ -300,6 +300,9 @@ const Add = ({ onSave, onCancel, editData }) => {
                       '&:hover fieldset': {
                         borderColor: '#0056B3', // Border color on hover
                       },
+                      '& .MuiInputBase-input': {
+        color: '#FFFFFF', // Ensures text color for the input
+      },
                     },
                     '& .MuiInputLabel-root': {
                       color: '#B3C2D1', // Label color
@@ -341,7 +344,7 @@ const Add = ({ onSave, onCancel, editData }) => {
           <Button color="error" onClick={onCancel} variant="contained">
             Close
           </Button>
-          <Button type="submit" variant="contained">
+          <Button type="submit"  variant="contained">
             Save
           </Button>
         </Box>

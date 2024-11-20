@@ -17,12 +17,14 @@ const CreateCouple = () => {
     try {
       const config = {
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`,
         },
       };
 
-      const response = await tripApi.post("/admin/createCouple", formData, config);
+      console.log("formdata",formData)
+
+      const response = await tripApi.post("/admin/addCouplesData", formData, config);
       if (response.status === 201) {
         toast.success(response.data.message);
         setIsEditing(false);
@@ -36,19 +38,19 @@ const CreateCouple = () => {
     try {
       const config = {
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`,
         },
       };
 
       const response = await tripApi.patch(`/admin/updateCouple/${editData.id}`, formData, config);
-      if (response.status === 200) {
-        toast.success(response.data.message);
+      if (response.status === 200){
+        toast.success(response?.data?.message);
         setIsEditing(false);
         setEditData(null);
       }
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error(error?.response?.data?.message);
     }
   };
 
@@ -62,15 +64,17 @@ const CreateCouple = () => {
       const response = await tripApi.get("/admin/couples", config);
       if (response.status === 200) {
         console.log("Respons",response)
-        setCouples(response.data);
+        setCouples(response?.data);
       }
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error(error?.response?.data?.message);
     }
   };
 
   const handleDelete = async (id) => {
-    setCouples((prevData) => prevData.filter((row) => row.id !== id));
+         console.log("couples",couples);
+         let updatecouple=couples.couples?.filter((row) => row.id !== id)
+    setCouples({...couples, couples:updatecouple});
   };
 
   const handleEdit = (couple) => {
@@ -84,17 +88,25 @@ const CreateCouple = () => {
   }, [isEditing]);
 
   return (
-    <Box sx={{ paddingX: 2 }}>
+    <Box sx={{ paddingX: 2, background: "linear-gradient(135deg, #141E30, #243B55)", }}>
       <Stack
         direction="row"
         alignItems="center"
         justifyContent="space-between"
         mb={2}
       >
-        <Typography variant="h4" gutterBottom textTransform={"uppercase"}>
+        <Typography variant="h4" color={'white'} gutterBottom textTransform={"uppercase"}>
           Couples
         </Typography>
-        <Button onClick={() => setIsEditing(!isEditing)} variant="contained">
+        <Button onClick={() => setIsEditing(!isEditing)} variant="contained"
+           sx={{
+            backgroundColor: "#007BFF", // Primary Button Color
+            color: "#FFFFFF",
+            "&:hover": {
+              backgroundColor: "#0056B3", // Hover Background
+            },
+          }}
+          >
           {isEditing ? "List" : "Add"}
         </Button>
       </Stack>

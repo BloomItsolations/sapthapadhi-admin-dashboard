@@ -58,13 +58,14 @@ export default function Nav({ openNav, onCloseNav }) {
             <Box>
               <Typography
                 variant="h4"
-                color="primary"
+                color="white"
                 sx={{
                   textTransform: "uppercase",
                   textAlign:'center'
                 }}
               >
                SAPTHAPDHI
+               
               </Typography>
             </Box>
             <Box sx={{ paddingTop: 2 }}>

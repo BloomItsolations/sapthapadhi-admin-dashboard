@@ -5,6 +5,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { useSelector } from "react-redux";
 import tripApi from "../../api/tripApi";
+import { color } from "chart.js/helpers";
 
 const ListCouple = ({ rowData, onDelete, onEdit }) => {
   let auth = useSelector((state) => state.user?.userInfo);
@@ -53,8 +54,8 @@ const ListCouple = ({ rowData, onDelete, onEdit }) => {
       width: 400,
       editable: false,
       renderCell: (params) => (
-        <Tooltip title={params.row.aboutUs}>
-          <Typography noWrap>{params.row.aboutUs}</Typography>
+        <Tooltip title={params.row.aboutUs} sx={{color:'white'}}>
+          <Typography sx={{color:'white'}} noWrap>{params.row.aboutUs}</Typography>
         </Tooltip>
       ),
     },
@@ -64,7 +65,7 @@ const ListCouple = ({ rowData, onDelete, onEdit }) => {
       width: 150,
       editable: false,
       renderCell: (params) => (
-        <img src={`https://sapthapadhi.bloomitsolutions.co.in/${params?.row?.image[0]?.path}`} alt="Couple" style={{ width: "100%" }} />
+        <img src={`${process.env.REACT_APP_BASE_URL}/${params?.row?.image[0]?.path}`} alt="Couple" style={{ width: "100%" }} />
       ),
     },
     {
@@ -80,13 +81,26 @@ const ListCouple = ({ rowData, onDelete, onEdit }) => {
                 event.stopPropagation();
                 onEdit(params.row);
               }}
-              color="primary"
+              sx={{
+                backgroundColor: "#007BFF", // Primary button background
+                color: "#FFFFFF", // Text color
+                '&:hover': {
+                  backgroundColor: "#0056B3", // Hover effect
+                },
+                marginRight: 1
+              }}
             >
               <EditIcon />
             </IconButton>
             <IconButton
               onClick={(event) => handleDelete(event, params.row.id)}
-              color="error"
+              sx={{
+                backgroundColor: "#FF5252", // Danger button background
+                color: "#FFFFFF", // Text color
+                '&:hover': {
+                  backgroundColor: "#D32F2F", // Hover effect
+                },
+              }}
             >
               <DeleteIcon />
             </IconButton>
@@ -96,7 +110,7 @@ const ListCouple = ({ rowData, onDelete, onEdit }) => {
     ];
   
     return (
-      <Box sx={{ height: 400, width: "100%" }}>
+      <Box sx={{ height: 400, width: "100%", background: "linear-gradient(135deg, #141E30, #243B55)",}}>
         <DataGrid
           rows={rowData}
           columns={columns}
@@ -106,6 +120,18 @@ const ListCouple = ({ rowData, onDelete, onEdit }) => {
             Toolbar: GridToolbar,
           }}
           disableSelectionOnClick
+          sx={{
+            borderRadius: 2,
+            boxShadow: 3,
+            color:'white',
+            '& .header-cell': {
+              color: 'white', // Set header text color to white
+              fontWeight: 'bold',
+            },
+            '& .MuiDataGrid-cell': {
+              color: 'white', // Set cell text color to white
+            },
+          }}
         />
       </Box>
     );

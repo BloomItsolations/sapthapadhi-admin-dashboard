@@ -14,6 +14,9 @@ import ImageIcon from '@mui/icons-material/Image';
 import BannerIcon from '@mui/icons-material/Bookmark';
 import CoupleIcon from '@mui/icons-material/People';
 import MessageIcon from '@mui/icons-material/Message';
+import SubscriptionsIcon from '@mui/icons-material/Subscriptions'; 
+
+import UserSubscription from "../pages/UserSubscription";
 
 const Dashboard = lazy(() => import("../pages/Dashboard"));
 
@@ -58,7 +61,7 @@ export const appRoutes = [
     title: "Couple Management",
     path: "/couple-management",
     element: <CreateCouple />,
-    icon: <CoupleIcon />, // Icon for Couple Management
+    icon: <CoupleIcon />
   },
   {
     group: "Dashboard",
@@ -66,5 +69,12 @@ export const appRoutes = [
     path: "/inquiry-message",
     element: <Inquary />,
     icon: <MessageIcon />, // Icon for Enquiry message
+  },
+  {
+    group: "Dashboard",
+    title: "User Subscription",
+    path: "/user-subsciption",
+    element: <UserSubscription />,
+    icon: <SubscriptionsIcon />, // Icon for Enquiry message
   },
 ];

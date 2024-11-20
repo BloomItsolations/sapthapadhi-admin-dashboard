@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { allInquary, createBanner, createGalleryImage, deleteBanner, deleteImage, getAllUsers, listBanner, listGalleryImage, listInquary, listPlan, userLogin } from "./userActions";
+import { allInquary, createBanner, createGalleryImage, deleteBanner, deleteImage, deleteInquary, getAllUsers, listBanner, listGalleryImage, listInquary, listPlan, userLogin } from "./userActions";
 
 const initialState = {
   loading: false,
@@ -174,6 +174,19 @@ const userSlice = createSlice({
       .addCase(allInquary.rejected, (state, { payload }) => {
         state.loading = false;
         state.error = payload;
+      })
+      .addCase(deleteInquary.pending,(state)=>{
+        state.loading=true;
+        state.error=null;
+      })
+      .addCase(deleteInquary.fulfilled,(state,{payload})=>{
+         state.loading=true;
+         state.status=payload;
+      })
+      .addCase(deleteInquary.rejected,(state,{payload})=>{
+         state.loading=true;
+         state.error=payload;
+
       })
       //get all plan
       .addCase(listPlan.pending, (state) => {

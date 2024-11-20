@@ -237,6 +237,30 @@ export const updateCouple = createAsyncThunk(
 );
 
 
+export const creatNewCouple = createAsyncThunk(
+  "user/newCouple",
+  async ({formdata}, { getState, rejectWithValue }) => {
+    try {
+      const { authInfo } = getState().auth;
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${authInfo.token}`,
+        },
+      };
+      const { data } = await tripApi.post(`/admin/createCouple`,formdata,config);
+      console.log("Data",data)
+      return data;
+    } catch (error) {
+      if (error.response && error.response.data.error) {
+        return rejectWithValue(error.response.data.error);
+      }
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+
 export const deleteCouple = createAsyncThunk(
   "delete/couple",
   async (id, { getState, rejectWithValue }) => {
@@ -271,6 +295,45 @@ export const allInquary = createAsyncThunk(
         return rejectWithValue(error.response.data.error);
       }
       return rejectWithValue(error.message);
+    }
+  }
+);
+export const deleteInquary = createAsyncThunk(
+  'delete/Inquary',
+  async (id, { getState, rejectWithValue }) => {
+    console.log('ID of inquiry:', id);
+
+    try {
+      // Retrieve authentication info from state
+      const  {userInfo}  = getState().user;
+      console.log("authInfo,",userInfo);
+
+      // Configure headers for the request
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      };
+
+      console.log('Making API call...');
+      
+      const response = await tripApi.delete(`/admin/deleteInquary/${id}`, config);
+
+      console.log('Response from API:', response);
+
+      // Return the response data upon success
+      return response.data;
+    } catch (error) {
+      console.error('Error during API call:', error);
+
+      // Handle known errors (e.g., with response and data)
+      if (error.response && error.response.data?.error) {
+        return rejectWithValue(error.response.data.error);
+      }
+
+      // Handle unknown errors
+      return rejectWithValue(error.message || 'An unknown error occurred.');
     }
   }
 );

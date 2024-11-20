@@ -2,12 +2,11 @@ import React from "react";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { Box, IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
 import { useSelector } from "react-redux";
 import tripApi from "../../api/tripApi";
 
 const UserListComponent = ({ rowData, onDelete, onEdit }) => {
- 
+  console.log("Rowdata",rowData);
   let auth = useSelector((state) => state.user?.userInfo);
   let token = auth?.token;
 
@@ -48,36 +47,46 @@ const UserListComponent = ({ rowData, onDelete, onEdit }) => {
       field: "currentPlan",
       headerName: "Current Plan",
       width: 150,
-      valueGetter: (params) => params.row.currentPlan || 'N/A',
+      valueGetter: (params) => params?.row?.currentPlan?.Plan?.name || "N/A",
     },
     {
       field: "gender",
       headerName: "Gender",
       width: 100,
-      valueGetter: (params) => params.row.details?.gender || 'N/A',
+      valueGetter: (params) => params.row.details?.gender || "N/A",
     },
     {
       field: "profilePhoto",
       headerName: "Profile Picture",
       width: 100,
-      renderCell: (params) => (
-        <img
-          src={params.row.details?.profilePhoto ? params.row.details?.profilePhoto : "https://www.pngkit.com/png/detail/126-1262807_instagram-default-profile-picture-png.png"}
-          alt="Profile"
-          style={{ width: 50, height: 50, borderRadius: '50%' }}
-        />
-      ),
-    },
+      renderCell: (params) => {
+        const baseUrl = process.env.REACT_APP_BASE_URL || ""; // Fetch base URL from environment variable
+    const profilePhotoPath = params.row.details?.profilePhoto?.path;
+    const profilePhotoUrl = profilePhotoPath
+      ? `${baseUrl}/${profilePhotoPath}`
+      : "https://www.pngkit.com/png/detail/126-1262807_instagram-default-profile-picture-png.png"; // Default profile picture
 
+        return <img
+          src={profilePhotoUrl}
+          alt="Profile"
+          style={{ width: 50, height: 50, borderRadius: "50%" }}
+        />
+        },
+    },
     {
       field: "actions",
       headerName: "Actions",
       width: 150,
       renderCell: (params) => (
         <Box>
-          
           <IconButton
-            color="secondary"
+            sx={{
+              backgroundColor: "#FF5252", // Danger Button
+              color: "#FFFFFF", // Text color
+              "&:hover": {
+                backgroundColor: "#D32F2F", // Hover background
+              },
+            }}
             onClick={(event) => handleDelete(event, params.row.id)}
           >
             <DeleteIcon />
@@ -88,7 +97,14 @@ const UserListComponent = ({ rowData, onDelete, onEdit }) => {
   ];
 
   return (
-    <Box>
+    <Box
+      sx={{
+        background: "linear-gradient(135deg, #141E30, #243B55)", // Background gradient
+        borderRadius: 2,
+        padding: 2,
+        boxShadow: 3,
+      }}
+    >
       {rowData === null ? null : (
         <DataGrid
           getRowId={(row) => row.id}
@@ -100,6 +116,22 @@ const UserListComponent = ({ rowData, onDelete, onEdit }) => {
           pageSizeOptions={[5, 10, 20, 30, 40, 50, 75, 100]}
           slots={{
             toolbar: GridToolbar,
+          }}
+          sx={{
+            "& .MuiDataGrid-root": {
+              background: "linear-gradient(135deg, #141E30, #243B55)",
+              color: "#FFFFFF",
+            },
+            "& .MuiDataGrid-columnHeaders": {
+              backgroundColor: "#37474F", // Subtle Button background
+              color: "#B3C2D1", // Subtle text color
+            },
+            "& .MuiDataGrid-cell": {
+              color: "#FFFFFF",
+            },
+            "& .MuiDataGrid-footerContainer": {
+              backgroundColor: "#37474F", // Subtle Button background
+            },
           }}
           disableSelectionOnClick
         />

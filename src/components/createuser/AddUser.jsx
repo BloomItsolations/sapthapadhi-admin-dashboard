@@ -55,7 +55,7 @@ const AddUser = ({ onSave, onCancel, editData }) => {
   };
 
   return (
-    <Box component="form" onSubmit={handleSubmit} sx={{ marginBottom: 2, backgroundColor: "#F4F6F8", boxShadow: 1, padding: 2, borderRadius: 1 }}>
+    <Box component="form" onSubmit={handleSubmit} sx={{ marginBottom: 2, background: "linear-gradient(135deg, #141E30, #243B55)",  boxShadow: 1, padding: 2, borderRadius: 1 }}>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
           <TextField
@@ -69,6 +69,20 @@ const AddUser = ({ onSave, onCancel, editData }) => {
             value={userData.firstName}
             onChange={handleChange}
             fullWidth
+            sx={{
+
+              '& .MuiOutlinedInput-root': {
+                '& fieldset': {
+                  borderColor: '#007BFF',
+                },
+                '&:hover fieldset': {
+                  borderColor: '#0056B3',
+                },
+                '& input': {
+                  color: 'white', // Set text color to white
+                },
+              },
+            }}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -83,6 +97,20 @@ const AddUser = ({ onSave, onCancel, editData }) => {
             value={userData.lastName}
             onChange={handleChange}
             fullWidth
+            sx={{
+
+              '& .MuiOutlinedInput-root': {
+                '& fieldset': {
+                  borderColor: '#007BFF',
+                },
+                '&:hover fieldset': {
+                  borderColor: '#0056B3',
+                },
+                '& input': {
+                  color: 'white', // Set text color to white
+                },
+              },
+            }}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -97,6 +125,20 @@ const AddUser = ({ onSave, onCancel, editData }) => {
             value={userData.email}
             onChange={handleChange}
             fullWidth
+            sx={{
+
+              '& .MuiOutlinedInput-root': {
+                '& fieldset': {
+                  borderColor: '#007BFF',
+                },
+                '&:hover fieldset': {
+                  borderColor: '#0056B3',
+                },
+                '& input': {
+                  color: 'white', // Set text color to white
+                },
+              },
+            }}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -111,6 +153,20 @@ const AddUser = ({ onSave, onCancel, editData }) => {
             value={userData.phone}
             onChange={handleChange}
             fullWidth
+            sx={{
+
+              '& .MuiOutlinedInput-root': {
+                '& fieldset': {
+                  borderColor: '#007BFF',
+                },
+                '&:hover fieldset': {
+                  borderColor: '#0056B3',
+                },
+                '& input': {
+                  color: 'white', // Set text color to white
+                },
+              },
+            }}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -125,6 +181,32 @@ const AddUser = ({ onSave, onCancel, editData }) => {
             value={userData.gender}
             onChange={handleChange}
             fullWidth
+            sx={{
+              '& .MuiOutlinedInput-root': {
+                '& input': {
+                  color: 'white', // Text color in the select input
+                },
+                '& fieldset': {
+                  borderColor: '#007BFF', // Border color
+                },
+                '&:hover fieldset': {
+                  borderColor: '#0056B3', // Border color on hover
+                },
+                '& .MuiInputBase-input': {
+  color: '#FFFFFF', // Ensures text color for the input
+},
+              },
+              '& .MuiInputLabel-root': {
+                color: '#B3C2D1', // Label color
+              },
+              '& .MuiInputBase-input': {
+                paddingLeft: '16px', // Padding for input text
+              },
+              '& .MuiSelect-icon': {
+                color: '#FFFFFF', // Color of the dropdown icon
+              },
+            }}
+          
           >
             {genderOptions.map((option) => (
               <MenuItem key={option} value={option}>
@@ -145,6 +227,32 @@ const AddUser = ({ onSave, onCancel, editData }) => {
             value={userData.lookingFor}
             onChange={handleChange}
             fullWidth
+            sx={{
+              '& .MuiOutlinedInput-root': {
+                '& input': {
+                  color: 'white', // Text color in the select input
+                },
+                '& fieldset': {
+                  borderColor: '#007BFF', // Border color
+                },
+                '&:hover fieldset': {
+                  borderColor: '#0056B3', // Border color on hover
+                },
+                '& .MuiInputBase-input': {
+  color: '#FFFFFF', // Ensures text color for the input
+},
+              },
+              '& .MuiInputLabel-root': {
+                color: '#B3C2D1', // Label color
+              },
+              '& .MuiInputBase-input': {
+                paddingLeft: '16px', // Padding for input text
+              },
+              '& .MuiSelect-icon': {
+                color: '#FFFFFF', // Color of the dropdown icon
+              },
+            }}
+          
           >
             {lookingForOptions.map((option) => (
               <MenuItem key={option} value={option}>
@@ -165,6 +273,20 @@ const AddUser = ({ onSave, onCancel, editData }) => {
             value={userData.dateOfBirth}
             onChange={handleChange}
             fullWidth
+            sx={{
+
+              '& .MuiOutlinedInput-root': {
+                '& fieldset': {
+                  borderColor: '#007BFF',
+                },
+                '&:hover fieldset': {
+                  borderColor: '#0056B3',
+                },
+                '& input': {
+                  color: 'white', // Set text color to white
+                },
+              },
+            }}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -179,6 +301,32 @@ const AddUser = ({ onSave, onCancel, editData }) => {
             value={userData.religion}
             onChange={handleChange}
             fullWidth
+            sx={{
+              '& .MuiOutlinedInput-root': {
+                '& input': {
+                  color: 'white', // Text color in the select input
+                },
+                '& fieldset': {
+                  borderColor: '#007BFF', // Border color
+                },
+                '&:hover fieldset': {
+                  borderColor: '#0056B3', // Border color on hover
+                },
+                '& .MuiInputBase-input': {
+  color: '#FFFFFF', // Ensures text color for the input
+},
+              },
+              '& .MuiInputLabel-root': {
+                color: '#B3C2D1', // Label color
+              },
+              '& .MuiInputBase-input': {
+                paddingLeft: '16px', // Padding for input text
+              },
+              '& .MuiSelect-icon': {
+                color: '#FFFFFF', // Color of the dropdown icon
+              },
+            }}
+          
           >
             {religionOptions.map((option) => (
               <MenuItem key={option} value={option}>
@@ -199,6 +347,20 @@ const AddUser = ({ onSave, onCancel, editData }) => {
             value={userData.country}
             onChange={handleChange}
             fullWidth
+            sx={{
+
+              '& .MuiOutlinedInput-root': {
+                '& fieldset': {
+                  borderColor: '#007BFF',
+                },
+                '&:hover fieldset': {
+                  borderColor: '#0056B3',
+                },
+                '& input': {
+                  color: 'white', // Set text color to white
+                },
+              },
+            }}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -213,6 +375,20 @@ const AddUser = ({ onSave, onCancel, editData }) => {
             value={userData.password}
             onChange={handleChange}
             fullWidth
+            sx={{
+
+              '& .MuiOutlinedInput-root': {
+                '& fieldset': {
+                  borderColor: '#007BFF',
+                },
+                '&:hover fieldset': {
+                  borderColor: '#0056B3',
+                },
+                '& input': {
+                  color: 'white', // Set text color to white
+                },
+              },
+            }}
           />
         </Grid>
       </Grid>

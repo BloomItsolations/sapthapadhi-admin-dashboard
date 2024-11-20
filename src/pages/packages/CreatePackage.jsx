@@ -5,6 +5,7 @@ import { Box, Stack, Typography, Button } from "@mui/material";
 import { toast } from "react-toastify";
 import tripApi from "../../api/tripApi";
 import { useSelector } from "react-redux";
+import Swal from "sweetalert2";
 
 export const CreatePackage = () => {
   const [tours, setTours] = useState(null);
@@ -33,6 +34,13 @@ export const CreatePackage = () => {
   };
 
   const updateHandler = async (formData) => {
+    Swal.fire({
+      title: 'Cannot Update Plan',
+      text: 'You can\'t update the plan feature due to some reasons. There are many features dependent on it. Please talk with the developer to update the plan.',
+      icon: 'warning',
+      confirmButtonText: 'Got it',
+    });
+    return;
     try {
       const config = {
         headers: {
