@@ -60,7 +60,7 @@ const GalleryManagement = () => {
       handleCloseDialog();
     } catch (error) {
       console.error("Error", error);
-      Swal.fire("Error", "Failed to upload image.", "error");
+      Swal.fire("Error", "Failed to upload Image.", "error");
     }
   };
 
