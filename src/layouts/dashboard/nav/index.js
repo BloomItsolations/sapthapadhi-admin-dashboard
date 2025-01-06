@@ -43,14 +43,15 @@ export default function Nav({ openNav, onCloseNav }) {
 
   const renderContent = (
     <Scrollbar
-      sx={{
-        height: 1,
-        "& .simplebar-content": {
-          height: 1,
-          display: "flex",
-          flexDirection: "column",
-        },
-      }}
+    sx={{
+      height: "100vh", // Full viewport height
+      overflowY: "auto", // Enable vertical scrolling
+      "& .simplebar-content": {
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+      },
+    }}
     >
       <Box sx={{ margin: 2 }}>
         <Link underline="none">
@@ -108,8 +109,10 @@ export default function Nav({ openNav, onCloseNav }) {
         borderColor: "white",
         boxShadow: "0 0 2px 0 rgba(0, 0, 0, 0.4)",
         border: "none",
-        background: 'linear-gradient(135deg, #141E30, #243B55)', // Gradient background
-        color: 'white', // Text color
+        height: "100vh", 
+        overflowY: "auto", 
+        background: 'linear-gradient(135deg, #141E30, #243B55)', 
+        color: 'white', 
       },
     }}
   >

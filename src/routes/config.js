@@ -14,9 +14,11 @@ import ImageIcon from '@mui/icons-material/Image';
 import BannerIcon from '@mui/icons-material/Bookmark';
 import CoupleIcon from '@mui/icons-material/People';
 import MessageIcon from '@mui/icons-material/Message';
+import GroupsIcon from '@mui/icons-material/Groups';
 import SubscriptionsIcon from '@mui/icons-material/Subscriptions'; 
 
 import UserSubscription from "../pages/UserSubscription";
+import TeamMangament from "../pages/TeamMangament";
 
 const Dashboard = lazy(() => import("../pages/Dashboard"));
 
@@ -76,5 +78,12 @@ export const appRoutes = [
     path: "/user-subsciption",
     element: <UserSubscription />,
     icon: <SubscriptionsIcon />, // Icon for Enquiry message
+  },
+  {
+    group: "Dashboard",
+    title: "Team Mangament",
+    path: "/team-management",
+    element: <TeamMangament />,
+    icon: <GroupsIcon />, // Icon for Enquiry message
   },
 ];
